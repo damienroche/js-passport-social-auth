@@ -1,0 +1,6 @@
+.Content {
+  padding: 1rem;
+  .inner {
+    @include row;
+  }
+}

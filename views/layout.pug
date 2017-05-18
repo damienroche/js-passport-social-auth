@@ -7,6 +7,20 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body
     block header
+      header.Header
+        .inner
+          .Header__PrimaryNav
+            span Logo
+          .Header__SecondNav
+            if user
+              .Header--Account
+                .hello Hi #{user.first_name} !
+                a(href="/logout" class="button primary") Logout
+            else
+              .Header--Login
+                .buttons-group
+                  a(href="/login" class="button hollow") Log in
+                  a(href="/signup" class="button primary") Sign up
 
     //- block messages
       if locals.flashes

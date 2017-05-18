@@ -6,7 +6,11 @@ const User = require('../models/User.js');
 
 // Do work here
 router.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', {title: 'Home'});
+});
+
+router.get('/login', (req, res) => {
+  res.render('login');
 });
 
 router.get('/account', ensureAuthenticated, function(req, res){
@@ -19,19 +23,19 @@ router.get('/account', ensureAuthenticated, function(req, res){
   });
 });
 
-router.get('/auth/github',
-  passport.authenticate('github'),
-  function(req, res){});
-router.get('/auth/github/callback',
-  passport.authenticate('github', { failureRedirect: '/' }),
-  function(req, res) {
-    //success
-    res.redirect('/');
-  });
 router.get('/logout', function(req, res){
   req.logout();
   res.redirect('/');
 });
+
+router.get('/auth/facebook',
+  passport.authenticate('facebook'),
+  function(req, res){});
+router.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/' }),
+  function(req, res) {
+    res.redirect('/');
+  });
 
 // test authentication
 function ensureAuthenticated(req, res, next) {

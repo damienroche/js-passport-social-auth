@@ -1,0 +1,18 @@
+.Header {
+  border-bottom: 1px solid $lightGray;
+  padding: 1rem;
+  .inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @include row;
+  }
+  &--Account {
+    display: flex;
+    align-items: center;
+    .hello {
+      font-weight: 600;
+      margin-right: 10px;
+    }
+  }
+}

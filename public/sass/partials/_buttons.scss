@@ -1,0 +1,43 @@
+.buttons-group {
+  .button + .button {
+    margin-left: 10px;
+  }
+}
+
+.button {
+  padding: 10px 15px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+  text-transform: uppercase;
+  border-width: 1px;
+  border-style: solid;;
+  @include transition;
+  &.hollow {
+    border-color: $lightGray;
+    color: black;
+    &:hover {
+      border-color: darken($lightGray, 20);
+    }
+  }
+  &.primary {
+    border-color: $primary;
+    background-color: $primary;
+    color: white;
+    &:hover {
+      background-color: darken($primary, 20);
+      border-color: darken($primary, 20);
+    }
+  }
+  &.facebook {
+    border-color: $facebookBlue;
+    background-color: $facebookBlue;
+    color: white;
+    font-weight: 500;
+    &:hover {
+      background-color: lighten($facebookBlue, 10);
+      border-color: lighten($facebookBlue, 10);
+    }
+  }
+}

@@ -1,0 +1,8 @@
+@mixin transition($el: all) {
+  transition: $el .2s;
+}
+
+@mixin row() {
+  max-width: $rowMaxWidth;
+  margin: 0 auto;
+}
