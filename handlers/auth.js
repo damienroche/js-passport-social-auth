@@ -4,7 +4,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 // var GithubStrategy = require('passport-github2').Strategy;
 // var GoogleStrategy = require('passport-google-oauth2').Strategy;
 // var InstagramStrategy = require('passport-instagram').Strategy;
-var User = require('./models/User.js');
+var User = require('../models/User.js');
 
 module.exports = passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_ID,

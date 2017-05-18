@@ -1,6 +1,9 @@
 const passport = require('passport');
 
 exports.login = (req, res) => {
+  if (req.isAuthenticated()) {
+    return res.redirect('back');
+  }
   res.render('login', {title: 'Login'});
 };
 

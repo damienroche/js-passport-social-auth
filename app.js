@@ -13,7 +13,7 @@ const routes = require('./routes/index');
 const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
 const User = require('./models/User.js');
-const socialAuth = require('./auth.js');
+const socialAuth = require('./handlers/auth.js');
 
 // create our Express app
 const app = express();
