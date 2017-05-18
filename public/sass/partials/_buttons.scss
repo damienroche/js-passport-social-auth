@@ -31,13 +31,23 @@
     }
   }
   &.facebook {
-    border-color: $facebookBlue;
-    background-color: $facebookBlue;
+    border-color: $facebook;
+    background-color: $facebook;
     color: white;
     font-weight: 500;
     &:hover {
-      background-color: lighten($facebookBlue, 10);
-      border-color: lighten($facebookBlue, 10);
+      background-color: lighten($facebook, 10);
+      border-color: lighten($facebook, 10);
+    }
+  }
+  &.github {
+    border-color: $github;
+    background-color: $github;
+    color: white;
+    font-weight: 500;
+    &:hover {
+      background-color: lighten($github, 10);
+      border-color: lighten($github, 10);
     }
   }
 }

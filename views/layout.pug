@@ -10,12 +10,21 @@ html
       header.Header
         .inner
           .Header__PrimaryNav
-            span Logo
+            a(href="/") Logo
+            //- nav
+              each item in h.menu
+                li
+                  a(href=item.slug, class=(currentPath.startsWith(item.slug) ? 'is-active' : ''))
+                    != h.icon(item.icon)
+                    span #{item.title}
           .Header__SecondNav
             if user
               .Header--Account
                 .hello Hi #{user.first_name} !
-                a(href="/logout" class="button primary") Logout
+                .buttons-group
+                  a(href="/account" class="button hollow") Account
+                  a(href="/logout" class="button primary") Logout
+                img(class="avatar" src=user.photo_url)
             else
               .Header--Login
                 .buttons-group

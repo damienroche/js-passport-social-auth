@@ -25,6 +25,7 @@ module.exports = passport.use(new FacebookStrategy({
           fbID: profile.id,
           name: profile.displayName,
           first_name: profile.name.givenName,
+          photo_url: profile.photos[0].value,
           created: Date.now()
         });
         user.save(function(err) {

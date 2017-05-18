@@ -1,2 +1,4 @@
-mixin socialButtons()
-  a(href="/auth/facebook" class="button facebook") Login via Facebook
+mixin socialButtons(action)
+  .buttons-group
+    a(href="/auth/facebook" class="button facebook") #{action} via Facebook
+    a(href="/auth/github" class="button github") #{action} via Github

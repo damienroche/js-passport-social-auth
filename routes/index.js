@@ -3,44 +3,25 @@ const passport = require('passport');
 const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/User.js');
+const userController = require('../controllers/userController');
+const authController = require('../controllers/authController');
+const homeController = require('../controllers/homeController');
 
-// Do work here
-router.get('/', (req, res) => {
-  res.render('index', {title: 'Home'});
-});
+/*
+** Main Routes
+*/
+router.get('/', homeController.home);
 
-router.get('/login', (req, res) => {
-  res.render('login');
-});
+/*
+** Auth Routes
+*/
 
-router.get('/account', ensureAuthenticated, function(req, res){
-  User.findById(req.session.passport.user, function(err, user) {
-    if(err) {
-      console.log(err);  // handle errors
-    } else {
-      res.send('account');
-    }
-  });
-});
-
-router.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
-
-router.get('/auth/facebook',
-  passport.authenticate('facebook'),
-  function(req, res){});
-router.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/' }),
-  function(req, res) {
-    res.redirect('/');
-  });
-
-// test authentication
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/');
-}
+router.get('/login', authController.login);
+router.get('/signup', authController.register);
+router.get('/account', authController.isLoggedIn, userController.account);
+router.post('/account', userController.updateAccount);
+router.get('/logout', authController.logout);
+router.get('/auth/facebook', authController.facebookLogin);
+router.get('/auth/facebook/callback', authController.facebookCallback);
 
 module.exports = router;
