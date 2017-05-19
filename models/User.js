@@ -1,14 +1,22 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 // create a user model
-const User = mongoose.model('User', {
-  fbID: Number,
-  githubID: Number,
+const userSchema = new Schema({
+  fbID: {
+    type: Number,
+    unique: true
+  },
+  githubID: {
+    type: Number,
+    unique: true
+  },
   name: String,
   first_name: String,
   photo_url: String,
-  created: Date
+  created: Date,
+  timestamp: Number
 });
 
 
-module.exports = User;
+module.exports = mongoose.model('User', userSchema);

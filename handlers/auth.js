@@ -1,10 +1,11 @@
-var passport = require('passport');
-var FacebookStrategy = require('passport-facebook').Strategy;
-// var TwitterStrategy = require('passport-twitter').Strategy;
-var GithubStrategy = require('passport-github2').Strategy;
-// var GoogleStrategy = require('passport-google-oauth2').Strategy;
-// var InstagramStrategy = require('passport-instagram').Strategy;
-var User = require('../models/User.js');
+const passport = require('passport');
+const FacebookStrategy = require('passport-facebook').Strategy;
+const GithubStrategy = require('passport-github2').Strategy;
+// const TwitterStrategy = require('passport-twitter').Strategy;
+// const GoogleStrategy = require('passport-google-oauth2').Strategy;
+// const InstagramStrategy = require('passport-instagram').Strategy;
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
 
 module.exports = passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_ID,
@@ -12,7 +13,7 @@ module.exports = passport.use(new FacebookStrategy({
   callbackURL: process.env.FACEBOOK_CALLBACK,
   profileFields: ['id', 'displayName', 'photos', 'email', 'first_name']
   },
-  function(accessToken, refreshToken, profile, done) {
+  (accessToken, refreshToken, profile, done) => {
     User.findOne({ fbID: profile.id }, function(err, user) {
       if(err) {
         console.log(err);  // handle errors!
@@ -26,7 +27,8 @@ module.exports = passport.use(new FacebookStrategy({
           name: profile.displayName,
           first_name: profile.name.givenName,
           photo_url: profile.photos[0].value,
-          created: Date.now()
+          created: Date.now(),
+          timestamp: Date.now()
         });
         user.save(function(err) {
           if(err) {
@@ -72,7 +74,7 @@ module.exports = passport.use(new FacebookStrategy({
 //   }
 // ));
 
-module.exports = passport.use(new GithubStrategy({
+passport.use(new GithubStrategy({
   clientID: process.env.GITHUB_ID,
   clientSecret: process.env.GITHUB_KEY,
   callbackURL: process.env.GITHUB_CALLBACK

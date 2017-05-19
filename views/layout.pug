@@ -20,7 +20,6 @@ html
           .Header__SecondNav
             if user
               .Header--Account
-                .hello Hi #{user.first_name || user.name} !
                 .buttons-group
                   a(href="/account" class="button hollow") Account
                   a(href="/logout" class="button primary") Logout

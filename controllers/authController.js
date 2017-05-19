@@ -1,4 +1,5 @@
 const passport = require('passport');
+const mongoose = require('mongoose');
 
 exports.login = (req, res) => {
   if (req.isAuthenticated()) {
@@ -25,6 +26,18 @@ exports.isLoggedIn = (req, res, next) => {
   res.redirect('/login');
 };
 
+exports.dispatch = (req, res) => {
+  const duration = Date.now() - req.user.timestamp;
+  // Redirect user to account if he`s registered 1 minute ago
+  if (duration < 60000) {
+    req.flash('success', `Hello ${req.user.first_name}, it looks like your are new here! Please tell us more about you`);
+    res.redirect('/account');
+    return;
+  }
+  req.flash('success', `Hello ${req.user.first_name}`);
+  res.redirect('/');
+};
+
 exports.facebookLogin = passport.authenticate('facebook', {
   failureRedirect: '/login',
   failureFlash: 'Failed Login!'
@@ -32,9 +45,7 @@ exports.facebookLogin = passport.authenticate('facebook', {
 
 exports.facebookCallback = passport.authenticate('facebook', {
   failureRedirect: '/',
-  failureFlash: 'Failed Login!',
-  successRedirect: '/',
-  successFlash: `Hello !`
+  failureFlash: 'Failed Login!'
 });
 
 exports.githubLogin = passport.authenticate('github', {
