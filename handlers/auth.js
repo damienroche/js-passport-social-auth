@@ -1,7 +1,7 @@
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 // var TwitterStrategy = require('passport-twitter').Strategy;
-// var GithubStrategy = require('passport-github2').Strategy;
+var GithubStrategy = require('passport-github2').Strategy;
 // var GoogleStrategy = require('passport-google-oauth2').Strategy;
 // var InstagramStrategy = require('passport-instagram').Strategy;
 var User = require('../models/User.js');
@@ -72,36 +72,38 @@ module.exports = passport.use(new FacebookStrategy({
 //   }
 // ));
 
-// module.exports = passport.use(new GithubStrategy({
-//   clientID: process.env.GITHUB_ID,
-//   clientSecret: process.env.GITHUB_KEY,
-//   callbackURL: process.env.GITHUB_CALLBACK
-//   },
-//   (accessToken, refreshToken, profile, done) => {
-//     User.findOne({ oauthID: profile.id }, (err, user) => {
-//       if(err) {
-//         console.log(err);  // handle errors!
-//       }
-//       if (!err && user !== null) {
-//         done(null, user);
-//       } else {
-//         user = new User({
-//           oauthID: profile.id,
-//           name: profile.displayName,
-//           created: Date.now()
-//         });
-//         user.save((err) => {
-//           if(err) {
-//             console.log(err);  // handle errors!
-//           } else {
-//             console.log("saving user ...");
-//             done(null, user);
-//           }
-//         });
-//       }
-//     });
-//   }
-// ));
+module.exports = passport.use(new GithubStrategy({
+  clientID: process.env.GITHUB_ID,
+  clientSecret: process.env.GITHUB_KEY,
+  callbackURL: process.env.GITHUB_CALLBACK
+  },
+  (accessToken, refreshToken, profile, done) => {
+    User.findOne({ githubID: profile.id }, (err, user) => {
+      if(err) {
+        console.log(err);  // handle errors!
+      }
+      if (!err && user !== null) {
+        console.log("existe déja");
+        done(null, user);
+      } else {
+        console.log(profile);
+        user = new User({
+          githubID: profile.id,
+          name: profile.displayName,
+          created: Date.now()
+        });
+        user.save((err) => {
+          if(err) {
+            console.log(err);  // handle errors!
+          } else {
+            console.log("saving user ...");
+            done(null, user);
+          }
+        });
+      }
+    });
+  }
+));
 
 // passport.use(new GoogleStrategy({
 //   clientID: config.google.clientID,

@@ -1,0 +1,12 @@
+.FlashMessages {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.FlashMessage {
+  display: flex;
+  border: 1px solid $lightGray;
+  padding: 10px 20px;
+  border-radius: 2px;
+}

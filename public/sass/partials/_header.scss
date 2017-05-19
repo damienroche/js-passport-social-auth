@@ -12,6 +12,8 @@
     align-items: center;
     .hello {
       font-weight: 600;
+      user-select: none;
+      cursor: default;
     }
     .avatar {
       border-radius: 100%;

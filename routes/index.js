@@ -23,5 +23,7 @@ router.post('/account', userController.updateAccount);
 router.get('/logout', authController.logout);
 router.get('/auth/facebook', authController.facebookLogin);
 router.get('/auth/facebook/callback', authController.facebookCallback);
+router.get('/auth/github', authController.githubLogin);
+router.get('/auth/github/callback', authController.githubCallback);
 
 module.exports = router;

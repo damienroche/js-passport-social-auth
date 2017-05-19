@@ -27,12 +27,24 @@ exports.isLoggedIn = (req, res, next) => {
 
 exports.facebookLogin = passport.authenticate('facebook', {
   failureRedirect: '/login',
+  failureFlash: 'Failed Login!'
+});
+
+exports.facebookCallback = passport.authenticate('facebook', {
+  failureRedirect: '/',
+  failureFlash: 'Failed Login!',
+  successRedirect: '/',
+  successFlash: `Hello !`
+});
+
+exports.githubLogin = passport.authenticate('github', {
+  failureRedirect: '/login',
   failureFlash: 'Failed Login!',
   successRedirect: '/',
   successFlash: 'You are now logged in!'
 });
 
-exports.facebookCallback = passport.authenticate('facebook', {
+exports.githubCallback = passport.authenticate('github', {
   failureRedirect: '/',
   failureFlash: 'Failed Login!',
   successRedirect: '/',

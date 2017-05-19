@@ -20,7 +20,7 @@ html
           .Header__SecondNav
             if user
               .Header--Account
-                .hello Hi #{user.first_name} !
+                .hello Hi #{user.first_name || user.name} !
                 .buttons-group
                   a(href="/account" class="button hollow") Account
                   a(href="/logout" class="button primary") Logout
@@ -30,17 +30,15 @@ html
                 .buttons-group
                   a(href="/login" class="button hollow") Log in
                   a(href="/signup" class="button primary") Sign up
-
-    //- block messages
+    block messages
       if locals.flashes
-        .inner
-          .flash-messages
-            - const categories = Object.keys(locals.flashes)
-            each category in categories
-              each message in flashes[category]
-                .flash(class=`flash--${category}`)
-                  p.flash__text!= message
-                  button.flash__remove(onClick="this.parentElement.remove()") &times;
+        .FlashMessages
+          - const categories = Object.keys(locals.flashes)
+          each category in categories
+            each message in flashes[category]
+              .FlashMessage(class=`${category}`)
+                p!= message
+                button(onClick="this.parentElement.remove()") &times;
     block content
 
     block scripts

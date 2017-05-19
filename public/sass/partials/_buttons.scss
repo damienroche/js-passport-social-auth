@@ -12,7 +12,8 @@
   border-radius: 2px;
   text-transform: uppercase;
   border-width: 1px;
-  border-style: solid;;
+  border-style: solid;
+  user-select: none;
   @include transition;
   &.hollow {
     border-color: $lightGray;
